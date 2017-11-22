@@ -3,17 +3,23 @@
     ViewBag.Title = "CustomersView";
 }
 
+<a href="/Home/NewCustomerForm">Add new Customer</a>
+
 <h2>CustomersView</h2>
 <form action="/Home/ListCustomersByCountry" method="get">
     <h3>Country</h3> 
     <select name ="Country">
-        <option value="Germany">Germany</option>
-        <option value="France">France</option>
-        <option value="USA">USA</option>
+    @foreach (var Country in ViewBag.CountryList)
+    {
+        <option value="@Country">@Country</option>
+    }
 
     </select>
-    <input type="submit" value ="Search by Country"/><b/>
+    <input type="submit" value ="Search by Country"/>
 </form>
+
+
+
 
 <form action="/Home/ListCustomersById" method="get">
     <input type="text" name ="CustomerIdNumber"/>
@@ -37,9 +43,16 @@
     <td>
         @CustomerRecord.City
     </td>
-    <td>
-        @CustomerRecord.Country
-    </td>
+        <td>
+            @CustomerRecord.Country
+        </td>
+        <td>
+        <a href ="/Home/DeleteCustomer?CustomerID=@CustomerRecord.CustomerID" onclick ="return confirm('Are you sure?')">Delete</a>
+        </td>
+        <td>
+             <a href="/Home/UpdateCustomer?CustomerID=@CustomerRecord.CustomerID">update>Delete</a>
+        </td>
+        
     </tr>
     
 }
